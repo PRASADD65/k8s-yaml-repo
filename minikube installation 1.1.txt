@@ -1,0 +1,68 @@
+1. update and upgrade ubuntu 
+sudo apt update
+sudo apt upgrade -y
+
+2. install docker.io
+sudo apt update
+sudo apt install -y docker.io
+
+
+sudo systemctl start docker
+sudo systemctl enable docker
+
+
+sudo usermod -aG docker $USER
+
+sudo apt update
+sudo apt upgrade -y
+
+3. Install Necessary Packages
+sudo apt install -y curl gnupg2
+
+4. Download and Install Minikube
+curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+sudo install minikube-linux-amd64 /usr/local/bin/minikube
+
+5. create a non root user and give it sudo permission
+adduser so
+
+vi /etc/sudoers
+so ALL=(ALL:ALL) ALL
+
+6. add the so user to docker group
+sudo usermod -aG docker so
+
+
+7. switch to the user
+su so
+sudo usermod -aG docker so
+
+
+newgrp docker
+
+minikube start
+
+
+now exit form the so user
+
+
+8.on root install kubectl from the k8s documentions (for 86*64 bit)
+
+1. Download the latest release with the command:
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+
+2. Validate the binary (optional)
+Download the kubectl checksum file:
+curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl.sha256"
+
+
+3. Validate the kubectl binary against the checksum file:
+echo "$(cat kubectl.sha256)  kubectl" | sha256sum --check
+
+
+4. Install kubectl
+sudo install -o root -g root -m 0755 kubectl /usr/local/bin/kubectl
+
+
+5. Test to ensure the version you installed is up-to-date:
+kubectl version --client
