@@ -1,0 +1,19 @@
+kind: ReplicationController
+apiVersion: v1
+metadata:
+  name: myreplicaset  # Corrected spelling from 'myrepilcaset'
+spec:
+  replicas: 2
+  selector:
+    name: rctest
+  template:  # Corrected 'templete' to 'template'
+    metadata:
+      name: pod1
+      labels:  # Corrected 'label' to 'labels'
+        name: rctest
+    spec:
+      containers:
+        - name: c1
+          image: ubuntu
+          command: ["/bin/bash", "-c", "sleep 100000"]
+
