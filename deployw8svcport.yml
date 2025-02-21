@@ -1,0 +1,19 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: mydeploy
+spec:
+  replicas: 2
+  selector:
+    matchExpressions:
+      - { key: myname, operator: In, values: [sone, sonu, soonu] }  # Fixed operator case
+  template:
+    metadata:
+      labels:
+        myname: sonu  # This label must match one of the selector values
+    spec:
+      containers:
+        - name: c1
+          image: httpd  # Changed from 'centos' to 'httpd' to run Apache on port 80
+          ports:
+            - containerPort: 80  # Fixed indentation
