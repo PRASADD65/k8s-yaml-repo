@@ -1,0 +1,29 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: 2cntr-pod
+  labels:
+    app: 2cntr-pod
+  annotations:
+    description: A pod with two containers, one exposing port 80.
+
+spec:
+  containers:
+    - name: web-cntr
+      image: httpd  # Apache Web Server
+      ports:
+        - containerPort: 80  # Exposing port 80
+      volumeMounts:
+        - name: xchange
+          mountPath: /xchange
+
+    - name: worker-cntr
+      image: ubuntu
+      command: ["/bin/sh", "-c", "while true; do echo 'Background process running'; sleep 10; done"]
+      volumeMounts:
+        - name: xchange
+          mountPath: /tmp/xchange
+  volumes:
+    - name: xchange
+      emptyDir:
+         sizeLimit: 500Mi
