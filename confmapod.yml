@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: configmap-pod
+  labels:  # Fixed from 'label' to 'labels'
+    name: configpod
+spec:
+  containers:
+    - name: c1
+      image: ubuntu
+      command: ["/bin/bash", "-c", "while true; do echo Technical-Guftgu; sleep 5; done"]
+      volumeMounts:  # Fixed indentation and spelling mistake (volumes -> volumeMounts)
+        - name: confvol
+          mountPath: /tmp/confvol
+  volumes:  # 'volumes' should be at the same level as 'containers'
+    - name: confvol
+      configMap:
+        name: mymap
+        items:
+          - key: sample.conf
+            path: sample.conf
+
