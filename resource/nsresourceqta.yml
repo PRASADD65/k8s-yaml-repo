@@ -1,0 +1,13 @@
+kind: ResourceQuota
+apiVersion: v1
+metadata:
+  name: resource-quota
+spec: 
+  hard:
+    limits.cpu: "1000m"
+    limits.memory: "500Mi"
+    requests.cpu: "100m"
+    requests.memory: "50Mi"
+    pods: "7"  # Maximum number of pods allowed in the namespace
+
+
