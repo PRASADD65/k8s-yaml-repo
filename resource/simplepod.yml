@@ -1,0 +1,10 @@
+kind: Pod
+apiVersion: v1
+metadata: 
+   name: sonu
+spec: 
+   containers: 
+      - name: c1
+        image: ubuntu
+        command: ["/bin/bash", "-c", "while true; do echo Running...; sleep 5; done"
+]
