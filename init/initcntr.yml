@@ -1,0 +1,25 @@
+kind: Pod
+apiVersion: v1
+metadata:
+   name: podw8init
+   labels:  # Fixed typo from 'lebels' to 'labels'
+     name: podw8init
+spec:
+   initContainers:
+     - name: initcntr
+       image: ubuntu
+       command: ["/bin/bash", "-c", "echo sonu > /tmp/xchange/testfile; sleep 30"]
+       volumeMounts:  # Fixed typo from 'volumeMount' to 'volumeMounts'
+         - name: xchange
+           mountPath: "/tmp/xchange"
+   containers:
+     - name: c1
+       image: ubuntu
+       command: ["/bin/bash", "-c", "while true; do echo $(cat /tmp/data/testfile); sleep 5; done"]
+       volumeMounts:  # Fixed typo from 'volumeMount' to 'volumeMounts'
+         - name: xchange  
+           mountPath: "/tmp/data" 
+   volumes:
+     - name: xchange  
+       emptyDir: {}
+
